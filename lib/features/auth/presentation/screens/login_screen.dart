@@ -3,13 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_planner/core/helpers/extensions.dart';
+import 'package:food_planner/core/routing/routes.dart';
 
 import '../../../../core/helpers/remove_focus.dart';
 import '../../../../core/helpers/show_toast.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/services/service_locator.dart';
+import '../../../../core/services/shared_perferences.dart';
 import '../../../../core/theming/colors.dart';
 import '../../../../core/theming/styles.dart';
+import '../../../../core/utils/constants.dart';
 import '../../../../core/widgets/auth_text_field.dart';
 import '../../../../core/widgets/custom_elevated_button.dart';
 import '../../../../core/widgets/loading_dialog.dart';
@@ -92,40 +95,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     );
                   }
-                  /*  if (state is UserLoginSuccess) {
-                context.pop();
-                CacheHelper.instance
-                    .saveData('userToken', state.loginResponse.token)
-                    .then((value) {
-                  AppConstants.userToken = state.loginResponse.token;
-                  context
-                      .read<LoginCubit>()
-                      .sendFcmToken(Notifications.fcmToken!);
-                  CacheHelper.instance
-                      .saveData(
-                          'userId', state.loginResponse.data!.userId!)
-                      .then((value) {
-                    AppConstants.userId =
-                        state.loginResponse.data!.userId!;
+                  if (state is UserLoginSuccess) {
+                    context.pop();
                     CacheHelper.instance
-                        .saveData('name', state.loginResponse.data!.name)
+                        .saveData('userToken', state.user.uid)
                         .then((value) {
-                      AppConstants.name = state.loginResponse.data!.name!;
-                      CacheHelper.instance
-                          .saveData(
-                              'userType', state.loginResponse.data!.type)
-                          .then((value) {
-                        AppConstants.userType =
-                            state.loginResponse.data!.type;
-                        context.pushReplacementNamed(Routes.landing);
-                    
-                        showSnackBar(
-                            state.loginResponse.message, context, true);
-                      });
+                      AppConstants.userToken = state.user.uid;
+                      context.pushReplacementNamed(Routes.landing);
                     });
-                  });
-                });
-              }*/
+                  }
 
                   if (state is UserLoginError) {
                     context.pop();
@@ -252,13 +230,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             verticalSpace(40.h),
                             CustomElevatedButton(
                                 buttonText: 'SIGN IN',
-                                textStyle: TextStyles.font16White500,
                                 onPressed: () {
                                   if (formKey.currentState!.validate()) {
                                     removeFocus(context);
-                                    /* context.read<LoginCubit>().userLogin(
-                                    emailController.text.trim(),
-                                    passwordController.text.trim());*/
+                                    context.read<LoginCubit>().signInWithEmail(
+                                        emailController.text.trim(),
+                                        passwordController.text.trim());
                                   }
                                 }),
                             verticalSpace(20.h),
@@ -271,7 +248,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             verticalSpace(10.h),
                             Center(
                                 child: InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                context.read<LoginCubit>().signInWithGoogle();
+                              },
                               child: SizedBox(
                                   height: 30.h,
                                   width: 30.w,

@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:meta/meta.dart';
 
@@ -7,8 +9,11 @@ import '../../data/repository/auth_repository.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
+  final FirebaseAuth auth;
+  final GoogleSignIn googleSignIn;
   final BaseAuthRepository baseAuthRepository;
-  LoginCubit(this.baseAuthRepository) : super(LoginInitial());
+  LoginCubit(this.baseAuthRepository, this.auth, this.googleSignIn)
+      : super(LoginInitial());
   bool isVisible = false;
 
   toggleVisibility() {
@@ -16,18 +21,39 @@ class LoginCubit extends Cubit<LoginState> {
     emit(ChangeVisibility());
   }
 
-  /*userLogin(String email, String password) async {
+  signInWithEmail(String email, String password) async {
     emit(UserLoginLoading());
-    Either<ApiErrorModel, LoginResponseModel> result =
-        await baseAuthRepository.userLogin(email, password);
-    result.fold((l) {
-      emit(UserLoginError(l.message!));
-    }, (r) {
-      emit(UserLoginSuccess(r));
-    });
+    try {
+      UserCredential result = await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      emit(UserLoginSuccess(result.user!));
+    } catch (e) {
+      emit(UserLoginError(e.toString()));
+    }
   }
 
-  sendFcmToken(String fcmToken) async {
-    await baseAuthRepository.sendFcmToken(fcmToken);
-  }*/
+  signInWithGoogle() async {
+    emit(UserLoginLoading());
+    try {
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      if (googleUser == null) {
+        return null;
+      }
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      UserCredential result = await auth.signInWithCredential(credential);
+      emit(UserLoginSuccess(result.user!));
+    } catch (e) {
+      print(e.toString());
+      emit(UserLoginError(e.toString()));
+    }
+  }
 }
