@@ -8,5 +8,5 @@ class AppConstants {
   static String? userType;
   static final navKey = GlobalKey<NavigatorState>();
 
-  static const baseURL = 'www.themealdb.com/api/json/v1/1/';
+  static const baseURL = 'https://www.themealdb.com/api/json/v1/1/';
 }

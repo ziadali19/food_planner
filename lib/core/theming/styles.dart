@@ -20,6 +20,8 @@ class TextStyles {
       fontSize: 12.sp, color: Colors.black, fontWeight: FontWeight.w600);
   static TextStyle font14Black500 = TextStyle(
       fontSize: 14.sp, color: Colors.black, fontWeight: FontWeight.w500);
+  static TextStyle font14Primary700 = TextStyle(
+      fontSize: 14.sp, color: Colors.black, fontWeight: FontWeight.w700);
   static TextStyle font14Black400 = TextStyle(
       fontSize: 14.sp, color: Colors.black, fontWeight: FontWeight.w400);
   static TextStyle font18Black400 = TextStyle(
@@ -28,6 +30,8 @@ class TextStyles {
       fontSize: 18.sp, color: Colors.black, fontWeight: FontWeight.w500);
   static TextStyle font14White600 = TextStyle(
       fontSize: 14.sp, color: Colors.white, fontWeight: FontWeight.w600);
+  static TextStyle font16White500 = TextStyle(
+      fontSize: 16.sp, color: Colors.white, fontWeight: FontWeight.w500);
   static TextStyle font20White700 = TextStyle(
       fontSize: 20.sp, color: Colors.white, fontWeight: FontWeight.w700);
   static TextStyle font20Black700 = TextStyle(

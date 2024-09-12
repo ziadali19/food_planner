@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_planner/core/routing/routes.dart';
 import 'package:food_planner/features/auth/presentation/screens/login_screen.dart';
 
+import '../../features/auth/presentation/screens/register_screen.dart';
 import '../../features/landing/presentation/screens/landing_screen.dart';
 
 class AppRouter {
@@ -16,6 +17,10 @@ class AppRouter {
       case Routes.login:
         return MaterialPageRoute(
           builder: (context) => const LoginScreen(),
+        );
+      case Routes.register:
+        return MaterialPageRoute(
+          builder: (context) => const RegisterScreen(),
         );
       default:
         return MaterialPageRoute(

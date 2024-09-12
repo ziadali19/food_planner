@@ -57,7 +57,7 @@ class CustomElevatedButton extends StatelessWidget {
             ),
           ),
           fixedSize: WidgetStateProperty.all(
-            Size(buttonWidth ?? double.maxFinite, buttonHeight ?? 32.h),
+            Size(buttonWidth ?? double.maxFinite, buttonHeight ?? 50.h),
           ),
         ),
         onPressed: onPressed,
