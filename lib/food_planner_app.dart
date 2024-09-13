@@ -9,8 +9,8 @@ import 'features/auth/presentation/screens/login_screen.dart';
 import 'features/landing/presentation/screens/landing_screen.dart';
 import 'features/on_boarding/presentation/screens/on_boarding_screen.dart';
 
-class WorkFlowApp extends StatelessWidget {
-  const WorkFlowApp({
+class FoodPlannerApp extends StatelessWidget {
+  const FoodPlannerApp({
     super.key,
   });
 

@@ -101,7 +101,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         .saveData('userToken', state.user.uid)
                         .then((value) {
                       AppConstants.userToken = state.user.uid;
-                      context.pushReplacementNamed(Routes.landing);
+                      CacheHelper.instance
+                          .saveData('name', state.user.email!.split('@')[0])
+                          .then((value) {
+                        AppConstants.name = state.user.email!.split('@')[0];
+                        context.pushReplacementNamed(Routes.landing);
+                      });
                     });
                   }
 

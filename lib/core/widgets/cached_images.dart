@@ -25,12 +25,10 @@ class CachedImageItem extends StatelessWidget {
       height: height, //186.h,
       imageUrl: url,
       imageBuilder: (context, imageProvider) => Container(
+        width: width, // 307.w,
+        height: height,
         decoration: BoxDecoration(
-          borderRadius: sliverAppBar
-              ? BorderRadius.only(
-                  bottomLeft: Radius.circular(radius),
-                  bottomRight: Radius.circular(radius))
-              : BorderRadius.circular(radius),
+          shape: BoxShape.circle,
           image: DecorationImage(
             image: imageProvider,
             fit: BoxFit.cover,

@@ -9,4 +9,12 @@ class AppConstants {
   static final navKey = GlobalKey<NavigatorState>();
 
   static const baseURL = 'https://www.themealdb.com/api/json/v1/1/';
+  static String getInitials(String fullName) {
+    List<String> nameParts = fullName.split(' ');
+    String initials = nameParts[0][0]; // First character of the first name
+    if (nameParts.length > 1) {
+      initials += nameParts[1][0]; // First character of the last name
+    }
+    return initials.toUpperCase();
+  }
 }

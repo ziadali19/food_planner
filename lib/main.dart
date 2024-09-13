@@ -23,14 +23,14 @@ void main() async {
   await CacheHelper.instance.init();
 
   AppConstants.userToken = CacheHelper.instance.getData('userToken') as String?;
-  AppConstants.userId = CacheHelper.instance.getData('userId') as String?;
+
   AppConstants.name = CacheHelper.instance.getData('name') as String?;
-  AppConstants.userType = CacheHelper.instance.getData('userType') as String?;
+
   AppConstants.onBoarding = CacheHelper.instance.getData('onBoarding') as bool?;
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
   Bloc.observer = MyBlocObserver();
-  runApp(const WorkFlowApp());
+  runApp(const FoodPlannerApp());
 }
