@@ -138,23 +138,26 @@ class _LandingScreenState extends State<LandingScreen> {
                                               padding:
                                                   EdgeInsetsDirectional.only(
                                                       end: 20.w),
-                                              child: Column(
-                                                children: [
-                                                  CachedImageItem(
-                                                      width: 60.w,
-                                                      height: 60.h,
-                                                      url: cubit
-                                                          .categories![index]
-                                                          .strCategoryThumb!,
-                                                      radius: 100.r),
-                                                  verticalSpace(10.h),
-                                                  Text(
-                                                    cubit.categories![index]
-                                                        .strCategory!,
-                                                    style: TextStyles
-                                                        .font16Black500,
-                                                  )
-                                                ],
+                                              child: InkWell(
+                                                onTap: () {},
+                                                child: Column(
+                                                  children: [
+                                                    CachedImageItem(
+                                                        width: 60.w,
+                                                        height: 60.h,
+                                                        url: cubit
+                                                            .categories![index]
+                                                            .strCategoryThumb!,
+                                                        radius: 100.r),
+                                                    verticalSpace(10.h),
+                                                    Text(
+                                                      cubit.categories![index]
+                                                          .strCategory!,
+                                                      style: TextStyles
+                                                          .font16Black500,
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                             ))),
                               );
