@@ -59,18 +59,18 @@ class MealCard extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              transform: Matrix4.translationValues(0, 10.h, 0),
+              transform: Matrix4.translationValues(0, 5.h, 0),
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.white,
               ),
-              height: 55.h,
-              width: 55.w,
+              height: 40.h,
+              width: 40.w,
               child: RawMaterialButton(
                 onPressed: () {},
                 child: SizedBox(
-                    height: 35.h,
-                    width: 35.w,
+                    height: 30.h,
+                    width: 30.w,
                     child: SvgPicture.asset('unSelectedHeart'.svgPath())),
               ),
             ),
