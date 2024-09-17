@@ -69,8 +69,8 @@ class MealCard extends StatelessWidget {
               child: RawMaterialButton(
                 onPressed: () {},
                 child: SizedBox(
-                    height: 45.h,
-                    width: 45.w,
+                    height: 35.h,
+                    width: 35.w,
                     child: SvgPicture.asset('unSelectedHeart'.svgPath())),
               ),
             ),
