@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 import '../../../../core/services/service_locator.dart';
 import '../../../../core/theming/styles.dart';
 import '../../../../core/utils/constants.dart';
+import '../../../../core/widgets/cached_images.dart';
 import '../components/shimmer_for_meals.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -24,7 +25,10 @@ class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<LandingCubit>()..getMealOfTheDay(),
+      create: (context) => sl<LandingCubit>()
+        ..getMealOfTheDay()
+        ..getCategories()
+        ..getCountries(),
       child: Scaffold(
         body: SafeArea(
             child: SingleChildScrollView(
@@ -102,6 +106,112 @@ class _LandingScreenState extends State<LandingScreen> {
                                   title: cubit.mealOfTheDay!.strMeal ?? '',
                                   image: cubit.mealOfTheDay!.strMealThumb ?? '',
                                   country: cubit.mealOfTheDay!.strArea ?? '');
+                            }
+                            return const SizedBox.shrink();
+                          },
+                        ),
+                        verticalSpace(20.h),
+                        Text('Categories', style: TextStyles.font24Black700),
+                        verticalSpace(10.h),
+                        BlocConsumer<LandingCubit, LandingState>(
+                          buildWhen: (previous, current) =>
+                              current is GetCategoriesSuccess ||
+                              current is GetCategoriesError ||
+                              current is GetCategoriesLoading,
+                          listener: (context, state) {
+                            if (state is GetCategoriesError) {
+                              showSnackBar(state.errorMsg, context, false);
+                            }
+                          },
+                          builder: (context, state) {
+                            LandingCubit cubit = context.read<LandingCubit>();
+                            if (cubit.categories == null) {
+                              return const ShimmerItemForMeals(itemCount: 1);
+                            }
+                            if (cubit.categories != null) {
+                              return SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                    children: List.generate(
+                                        cubit.categories!.length,
+                                        (index) => Padding(
+                                              padding:
+                                                  EdgeInsetsDirectional.only(
+                                                      end: 20.w),
+                                              child: Column(
+                                                children: [
+                                                  CachedImageItem(
+                                                      width: 60.w,
+                                                      height: 60.h,
+                                                      url: cubit
+                                                          .categories![index]
+                                                          .strCategoryThumb!,
+                                                      radius: 100.r),
+                                                  verticalSpace(10.h),
+                                                  Text(
+                                                    cubit.categories![index]
+                                                        .strCategory!,
+                                                    style: TextStyles
+                                                        .font16Black500,
+                                                  )
+                                                ],
+                                              ),
+                                            ))),
+                              );
+                            }
+                            return const SizedBox.shrink();
+                          },
+                        ),
+                        verticalSpace(20.h),
+                        Text('Countries', style: TextStyles.font24Black700),
+                        verticalSpace(10.h),
+                        BlocConsumer<LandingCubit, LandingState>(
+                          buildWhen: (previous, current) =>
+                              current is GetCountriesError ||
+                              current is GetCountriesSuccess ||
+                              current is GetCountriesLoading,
+                          listener: (context, state) {
+                            if (state is GetCountriesError) {
+                              showSnackBar(state.errorMsg, context, false);
+                            }
+                          },
+                          builder: (context, state) {
+                            LandingCubit cubit = context.read<LandingCubit>();
+                            if (cubit.countries == null) {
+                              return const ShimmerItemForMeals(itemCount: 1);
+                            }
+                            if (cubit.countries != null) {
+                              return Wrap(
+                                direction: Axis.horizontal,
+                                children: List.generate(
+                                    cubit.countries!.length,
+                                    (index) => Padding(
+                                          padding: EdgeInsetsDirectional.only(
+                                              bottom: 10.w, end: 10.w),
+                                          child: InkWell(
+                                            onTap: () {},
+                                            child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.w,
+                                                  vertical: 10),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.r),
+                                                  color:
+                                                      ColorsManager.secondary),
+                                              child: Text(
+                                                cubit
+                                                    .countries![index].strArea!,
+                                                style: TextStyles.font16Black500
+                                                    .copyWith(
+                                                        color: ColorsManager
+                                                            .primary),
+                                              ),
+                                            ),
+                                          ),
+                                        )),
+                              );
                             }
                             return const SizedBox.shrink();
                           },

@@ -9,7 +9,7 @@ import '../../features/auth/controller/cubit/login_cubit.dart';
 import '../../features/auth/data/remote_data_source/auth_remote_data_source.dart';
 import '../../features/auth/data/repository/auth_repository.dart';
 import '../../features/landing/data/remote_data_source/landing_remota_data_source.dart';
-import '../../features/landing/data/repository/templates_repository.dart';
+import '../../features/landing/data/repository/landing_repository.dart';
 import '../network/dio_helper.dart';
 
 GetIt sl = GetIt.instance;
