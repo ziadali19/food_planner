@@ -40,7 +40,12 @@ class MealCard extends StatelessWidget {
               child: Column(
                 children: [
                   CachedImageItem(
-                      width: 150.w, height: 115.h, url: image, radius: 100.r),
+                      sliverAppBar: false,
+                      circleShape: true,
+                      width: 150.w,
+                      height: 115.h,
+                      url: image,
+                      radius: 100.r),
                   Text(
                     title,
                     style: TextStyles.font18Black500,
@@ -71,7 +76,10 @@ class MealCard extends StatelessWidget {
                 child: SizedBox(
                     height: 30.h,
                     width: 30.w,
-                    child: SvgPicture.asset('unSelectedHeart'.svgPath())),
+                    child: SvgPicture.asset(
+                      'unSelectedHeart'.svgPath(),
+                      color: ColorsManager.primary,
+                    )),
               ),
             ),
           )

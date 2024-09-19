@@ -24,7 +24,11 @@ class CategoryWidget extends StatelessWidget {
         child: Column(
           children: [
             CachedImageItem(
-                width: 60.w, height: 60.h, url: categoryThumb, radius: 100.r),
+                circleShape: true,
+                width: 60.w,
+                height: 60.h,
+                url: categoryThumb,
+                radius: 100.r),
             verticalSpace(10.h),
             Text(
               categoryName,

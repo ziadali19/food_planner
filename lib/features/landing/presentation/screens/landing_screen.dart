@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_planner/core/helpers/extensions.dart';
 import 'package:food_planner/core/helpers/show_toast.dart';
 import 'package:food_planner/core/helpers/spacing.dart';
+import 'package:food_planner/core/routing/routes.dart';
 import 'package:food_planner/core/theming/colors.dart';
 import 'package:food_planner/features/landing/controller/cubit/landing_cubit.dart';
 import 'package:food_planner/features/landing/presentation/components/meal_card.dart';
@@ -104,10 +106,17 @@ class _LandingScreenState extends State<LandingScreen> {
                               return const ShimmerItemForMeals(itemCount: 1);
                             }
                             if (cubit.mealOfTheDay != null) {
-                              return MealCard(
-                                  title: cubit.mealOfTheDay!.strMeal ?? '',
-                                  image: cubit.mealOfTheDay!.strMealThumb ?? '',
-                                  country: cubit.mealOfTheDay!.strArea ?? '');
+                              return InkWell(
+                                onTap: () {
+                                  context.pushNamed(Routes.meal,
+                                      arguments: cubit.mealOfTheDay!.idMeal);
+                                },
+                                child: MealCard(
+                                    title: cubit.mealOfTheDay!.strMeal ?? '',
+                                    image:
+                                        cubit.mealOfTheDay!.strMealThumb ?? '',
+                                    country: cubit.mealOfTheDay!.strArea ?? ''),
+                              );
                             }
                             return const SizedBox.shrink();
                           },
