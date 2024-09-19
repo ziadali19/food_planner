@@ -40,7 +40,12 @@ class MealCard extends StatelessWidget {
               child: Column(
                 children: [
                   CachedImageItem(
-                      width: 150.w, height: 115.h, url: image, radius: 100.r),
+                      sliverAppBar: false,
+                      circleShape: true,
+                      width: 150.w,
+                      height: 115.h,
+                      url: image,
+                      radius: 100.r),
                   Text(
                     title,
                     style: TextStyles.font18Black500,
@@ -59,19 +64,22 @@ class MealCard extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              transform: Matrix4.translationValues(0, 10.h, 0),
+              transform: Matrix4.translationValues(0, 5.h, 0),
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.white,
               ),
-              height: 55.h,
-              width: 55.w,
+              height: 40.h,
+              width: 40.w,
               child: RawMaterialButton(
                 onPressed: () {},
                 child: SizedBox(
-                    height: 45.h,
-                    width: 45.w,
-                    child: SvgPicture.asset('unSelectedHeart'.svgPath())),
+                    height: 30.h,
+                    width: 30.w,
+                    child: SvgPicture.asset(
+                      'unSelectedHeart'.svgPath(),
+                      color: ColorsManager.primary,
+                    )),
               ),
             ),
           )

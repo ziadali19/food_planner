@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_planner/core/helpers/extensions.dart';
 import 'package:food_planner/core/helpers/show_toast.dart';
 import 'package:food_planner/core/helpers/spacing.dart';
+import 'package:food_planner/core/routing/routes.dart';
 import 'package:food_planner/core/theming/colors.dart';
 import 'package:food_planner/features/landing/controller/cubit/landing_cubit.dart';
 import 'package:food_planner/features/landing/presentation/components/meal_card.dart';
@@ -11,7 +13,9 @@ import 'package:intl/intl.dart';
 import '../../../../core/services/service_locator.dart';
 import '../../../../core/theming/styles.dart';
 import '../../../../core/utils/constants.dart';
-import '../../../../core/widgets/cached_images.dart';
+
+import '../components/category_widget.dart';
+import '../components/country_widget.dart';
 import '../components/shimmer_for_meals.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -102,10 +106,17 @@ class _LandingScreenState extends State<LandingScreen> {
                               return const ShimmerItemForMeals(itemCount: 1);
                             }
                             if (cubit.mealOfTheDay != null) {
-                              return MealCard(
-                                  title: cubit.mealOfTheDay!.strMeal ?? '',
-                                  image: cubit.mealOfTheDay!.strMealThumb ?? '',
-                                  country: cubit.mealOfTheDay!.strArea ?? '');
+                              return InkWell(
+                                onTap: () {
+                                  context.pushNamed(Routes.meal,
+                                      arguments: cubit.mealOfTheDay!.idMeal);
+                                },
+                                child: MealCard(
+                                    title: cubit.mealOfTheDay!.strMeal ?? '',
+                                    image:
+                                        cubit.mealOfTheDay!.strMealThumb ?? '',
+                                    country: cubit.mealOfTheDay!.strArea ?? ''),
+                              );
                             }
                             return const SizedBox.shrink();
                           },
@@ -134,31 +145,15 @@ class _LandingScreenState extends State<LandingScreen> {
                                 child: Row(
                                     children: List.generate(
                                         cubit.categories!.length,
-                                        (index) => Padding(
-                                              padding:
-                                                  EdgeInsetsDirectional.only(
-                                                      end: 20.w),
-                                              child: InkWell(
-                                                onTap: () {},
-                                                child: Column(
-                                                  children: [
-                                                    CachedImageItem(
-                                                        width: 60.w,
-                                                        height: 60.h,
-                                                        url: cubit
-                                                            .categories![index]
-                                                            .strCategoryThumb!,
-                                                        radius: 100.r),
-                                                    verticalSpace(10.h),
-                                                    Text(
-                                                      cubit.categories![index]
-                                                          .strCategory!,
-                                                      style: TextStyles
-                                                          .font16Black500,
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
+                                        (index) => CategoryWidget(
+                                              categoryThumb: cubit
+                                                      .categories![index]
+                                                      .strCategoryThumb ??
+                                                  '',
+                                              categoryName: cubit
+                                                      .categories![index]
+                                                      .strCategory ??
+                                                  '',
                                             ))),
                               );
                             }
@@ -188,31 +183,10 @@ class _LandingScreenState extends State<LandingScreen> {
                                 direction: Axis.horizontal,
                                 children: List.generate(
                                     cubit.countries!.length,
-                                    (index) => Padding(
-                                          padding: EdgeInsetsDirectional.only(
-                                              bottom: 10.w, end: 10.w),
-                                          child: InkWell(
-                                            onTap: () {},
-                                            child: Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 10.w,
-                                                  vertical: 10),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.r),
-                                                  color:
-                                                      ColorsManager.secondary),
-                                              child: Text(
-                                                cubit
-                                                    .countries![index].strArea!,
-                                                style: TextStyles.font16Black500
-                                                    .copyWith(
-                                                        color: ColorsManager
-                                                            .primary),
-                                              ),
-                                            ),
-                                          ),
+                                    (index) => CountryWidget(
+                                          country:
+                                              cubit.countries![index].strArea ??
+                                                  '',
                                         )),
                               );
                             }
