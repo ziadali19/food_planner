@@ -8,6 +8,8 @@ import '../../features/auth/controller/cubit/login_cubit.dart';
 
 import '../../features/auth/data/remote_data_source/auth_remote_data_source.dart';
 import '../../features/auth/data/repository/auth_repository.dart';
+import '../../features/landing/controller/cubit/category_cubit.dart';
+import '../../features/landing/controller/cubit/country_cubit.dart';
 import '../../features/landing/data/remote_data_source/landing_remota_data_source.dart';
 import '../../features/landing/data/repository/landing_repository.dart';
 import '../../features/meal/controller/cubit/meal_cubit.dart';
@@ -31,6 +33,8 @@ class ServiceLocator {
     sl.registerLazySingleton<BaseAuthRepository>(() => AuthRepository(sl()));
 //
     sl.registerFactory<LandingCubit>(() => LandingCubit(sl()));
+    sl.registerFactory<CategoryCubit>(() => CategoryCubit(sl()));
+    sl.registerFactory<CountryCubit>(() => CountryCubit(sl()));
     sl.registerLazySingleton<BaseLandingRemoteDataSource>(
         () => LandingRemoteDataSource(DioHelper.instance));
     sl.registerLazySingleton<BaseLandingRepository>(

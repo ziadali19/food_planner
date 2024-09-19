@@ -19,23 +19,20 @@ class CategoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsetsDirectional.only(end: 20.w),
-      child: InkWell(
-        onTap: () {},
-        child: Column(
-          children: [
-            CachedImageItem(
-                circleShape: true,
-                width: 60.w,
-                height: 60.h,
-                url: categoryThumb,
-                radius: 100.r),
-            verticalSpace(10.h),
-            Text(
-              categoryName,
-              style: TextStyles.font16Black500,
-            )
-          ],
-        ),
+      child: Column(
+        children: [
+          CachedImageItem(
+              circleShape: true,
+              width: 60.w,
+              height: 60.h,
+              url: categoryThumb,
+              radius: 100.r),
+          verticalSpace(10.h),
+          Text(
+            categoryName,
+            style: TextStyles.font16Black500,
+          )
+        ],
       ),
     );
   }

@@ -23,7 +23,9 @@ class MealScreen extends StatefulWidget {
 }
 
 class _MealScreenState extends State<MealScreen> {
-  late YoutubePlayerController _controller;
+  YoutubePlayerController _controller = YoutubePlayerController(
+      initialVideoId: YoutubePlayer.convertUrlToId(
+          'https://www.youtube.com/watch?v=AYXfaVD5o40')!);
 
   @override
   void initState() {
@@ -45,13 +47,13 @@ class _MealScreenState extends State<MealScreen> {
           showSnackBar(state.errorMsg, context, false);
         }
         if (state is GetMealByIdSuccess) {
-          if (context.read<MealCubit>().meal!.strYoutube != null ||
+          if (context.read<MealCubit>().meal!.strYoutube != null &&
               context.read<MealCubit>().meal!.strYoutube!.isNotEmpty) {
             _controller = YoutubePlayerController(
               initialVideoId: YoutubePlayer.convertUrlToId(
                   context.read<MealCubit>().meal!.strYoutube ?? '')!,
               flags: const YoutubePlayerFlags(
-                autoPlay: true,
+                autoPlay: false,
                 mute: false,
               ),
             );
@@ -62,10 +64,8 @@ class _MealScreenState extends State<MealScreen> {
         MealCubit cubit = context.read<MealCubit>();
         if (state is GetMealByIdLoading) {
           return const Scaffold(
-            body: Expanded(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
+            body: Center(
+              child: CircularProgressIndicator(),
             ),
           );
         }
@@ -166,18 +166,32 @@ class _MealScreenState extends State<MealScreen> {
                           style: TextStyles.font14Black400,
                         ),
                         verticalSpace(20.h),
-                        Text(
-                          'Video',
-                          style: TextStyles.font20Black700
-                              .copyWith(color: ColorsManager.primary),
-                        ),
+                        if (context.read<MealCubit>().meal!.strYoutube !=
+                                null &&
+                            context
+                                .read<MealCubit>()
+                                .meal!
+                                .strYoutube!
+                                .isNotEmpty)
+                          Text(
+                            'Video',
+                            style: TextStyles.font20Black700
+                                .copyWith(color: ColorsManager.primary),
+                          ),
                         verticalSpace(10.h),
-                        YoutubePlayer(
-                          controller: _controller,
-                          showVideoProgressIndicator: true,
-                          progressIndicatorColor: Colors.red,
-                          onReady: () {},
-                        ),
+                        if (context.read<MealCubit>().meal!.strYoutube !=
+                                null &&
+                            context
+                                .read<MealCubit>()
+                                .meal!
+                                .strYoutube!
+                                .isNotEmpty)
+                          YoutubePlayer(
+                            controller: _controller,
+                            showVideoProgressIndicator: true,
+                            progressIndicatorColor: Colors.red,
+                            onReady: () {},
+                          ),
                         verticalSpace(40.h),
                       ],
                     ),

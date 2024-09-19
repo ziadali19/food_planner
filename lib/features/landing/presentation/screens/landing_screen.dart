@@ -145,15 +145,24 @@ class _LandingScreenState extends State<LandingScreen> {
                                 child: Row(
                                     children: List.generate(
                                         cubit.categories!.length,
-                                        (index) => CategoryWidget(
-                                              categoryThumb: cubit
-                                                      .categories![index]
-                                                      .strCategoryThumb ??
-                                                  '',
-                                              categoryName: cubit
-                                                      .categories![index]
-                                                      .strCategory ??
-                                                  '',
+                                        (index) => GestureDetector(
+                                              onTap: () {
+                                                context.pushNamed(
+                                                    Routes.category,
+                                                    arguments: cubit
+                                                        .categories![index]
+                                                        .strCategory);
+                                              },
+                                              child: CategoryWidget(
+                                                categoryThumb: cubit
+                                                        .categories![index]
+                                                        .strCategoryThumb ??
+                                                    '',
+                                                categoryName: cubit
+                                                        .categories![index]
+                                                        .strCategory ??
+                                                    '',
+                                              ),
                                             ))),
                               );
                             }
@@ -183,10 +192,17 @@ class _LandingScreenState extends State<LandingScreen> {
                                 direction: Axis.horizontal,
                                 children: List.generate(
                                     cubit.countries!.length,
-                                    (index) => CountryWidget(
-                                          country:
-                                              cubit.countries![index].strArea ??
-                                                  '',
+                                    (index) => InkWell(
+                                          onTap: () {
+                                            context.pushNamed(Routes.country,
+                                                arguments: cubit
+                                                    .countries![index].strArea);
+                                          },
+                                          child: CountryWidget(
+                                            country: cubit.countries![index]
+                                                    .strArea ??
+                                                '',
+                                          ),
                                         )),
                               );
                             }
