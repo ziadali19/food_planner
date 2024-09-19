@@ -6,18 +6,20 @@ import '../theming/colors.dart';
 
 class CachedImageItem extends StatelessWidget {
   const CachedImageItem({
-    Key? key,
+    super.key,
     required this.width,
     required this.height,
     required this.url,
     required this.radius,
     this.sliverAppBar = false,
-  }) : super(key: key);
+    required this.circleShape,
+  });
   final double width;
   final double height;
   final String url;
   final double radius;
   final bool sliverAppBar;
+  final bool circleShape;
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
@@ -25,12 +27,15 @@ class CachedImageItem extends StatelessWidget {
       height: height, //186.h,
       imageUrl: url,
       imageBuilder: (context, imageProvider) => Container(
+        width: width, // 307.w,
+        height: height,
         decoration: BoxDecoration(
           borderRadius: sliverAppBar
               ? BorderRadius.only(
                   bottomLeft: Radius.circular(radius),
                   bottomRight: Radius.circular(radius))
-              : BorderRadius.circular(radius),
+              : null,
+          shape: circleShape ? BoxShape.circle : BoxShape.rectangle,
           image: DecorationImage(
             image: imageProvider,
             fit: BoxFit.cover,

@@ -2,18 +2,24 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>547723022844-644tk5k5i6pvqs5vbcfteav3sv4krl96.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.547723022844-644tk5k5i6pvqs5vbcfteav3sv4krl96</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>547723022844-qila63ob8mrch3qo227897he2dvbfkgp.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAxHn73GlQeucsnPQr2e0AN5E6gcrtO5dQ</string>
+	<string>AIzaSyCH8j7ibp3lP_uKSKnMLAiCM8YPf6vFIJM</string>
 	<key>GCM_SENDER_ID</key>
-	<string>766682212479</string>
+	<string>547723022844</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.foodPlanner</string>
 	<key>PROJECT_ID</key>
-	<string>food-planner-depi</string>
+	<string>depi-food-planner</string>
 	<key>STORAGE_BUCKET</key>
-	<string>food-planner-depi.appspot.com</string>
+	<string>depi-food-planner.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:766682212479:ios:1e6cec673eabc1e15c774a</string>
+	<string>1:547723022844:ios:5fae3a6a443b0cd602a279</string>
 </dict>
 </plist>

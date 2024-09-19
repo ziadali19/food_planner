@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_planner/features/layout/presentation/screens/layout_screen.dart';
 
 import 'core/routing/app_router.dart';
 
 import 'core/theming/themes.dart';
 import 'core/utils/constants.dart';
 import 'features/auth/presentation/screens/login_screen.dart';
-import 'features/landing/presentation/screens/landing_screen.dart';
 import 'features/on_boarding/presentation/screens/on_boarding_screen.dart';
 
-class WorkFlowApp extends StatelessWidget {
-  const WorkFlowApp({
+class FoodPlannerApp extends StatelessWidget {
+  const FoodPlannerApp({
     super.key,
   });
 
@@ -26,7 +26,7 @@ class WorkFlowApp extends StatelessWidget {
           home: AppConstants.onBoarding != true
               ? const OnBoardingScreen()
               : AppConstants.userToken != null
-                  ? const LandingScreen()
+                  ? const LayoutScreen()
                   : const LoginScreen(),
           onGenerateRoute: (settings) {
             return AppRouter.onGenerateRoute(settings);

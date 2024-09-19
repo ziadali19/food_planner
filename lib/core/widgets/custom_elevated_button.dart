@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../theming/colors.dart';
+import '../theming/styles.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final double? borderRadius;
@@ -11,7 +12,7 @@ class CustomElevatedButton extends StatelessWidget {
   final double? buttonWidth;
   final double? buttonHeight;
   final String buttonText;
-  final TextStyle textStyle;
+
   final VoidCallback onPressed;
   const CustomElevatedButton({
     super.key,
@@ -22,7 +23,6 @@ class CustomElevatedButton extends StatelessWidget {
     this.buttonHeight,
     this.buttonWidth,
     required this.buttonText,
-    required this.textStyle,
     required this.onPressed,
   });
 
@@ -57,13 +57,13 @@ class CustomElevatedButton extends StatelessWidget {
             ),
           ),
           fixedSize: WidgetStateProperty.all(
-            Size(buttonWidth ?? double.maxFinite, buttonHeight ?? 32.h),
+            Size(buttonWidth ?? double.maxFinite, buttonHeight ?? 50.h),
           ),
         ),
         onPressed: onPressed,
         child: Text(
           buttonText,
-          style: textStyle,
+          style: TextStyles.font16White500,
           overflow: TextOverflow.ellipsis,
         ),
       ),

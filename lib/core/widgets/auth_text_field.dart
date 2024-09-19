@@ -13,7 +13,7 @@ class AuthTextFormField extends StatelessWidget {
   final TextStyle? inputTextStyle;
   final TextStyle? hintStyle;
   final String? hintText;
-
+  final void Function(String)? onChanged;
   final bool? isObscureText;
   final bool? showCursor;
   final TextInputType? keyboardType;
@@ -48,11 +48,13 @@ class AuthTextFormField extends StatelessWidget {
     this.maxLines,
     this.readOnly,
     this.enabled,
+    this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
       enabled: enabled ?? true,
       readOnly: readOnly ?? false,
       maxLines: maxLines,
