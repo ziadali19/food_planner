@@ -9,6 +9,7 @@ import 'package:food_planner/features/search/controller/cubit/search_cubit.dart'
 import 'package:food_planner/features/search/presentation/components/filter_item.dart';
 
 import '../../../../core/helpers/spacing.dart';
+import '../../../../core/routing/routes.dart';
 import '../../../../core/services/service_locator.dart';
 import '../../../../core/theming/colors.dart';
 import '../../../../core/theming/styles.dart';
@@ -202,14 +203,22 @@ class _SearchScreenState extends State<SearchScreen> {
                             return verticalSpace(20.h);
                           },
                           itemBuilder: (BuildContext context, int index) {
-                            return MealCard(
-                                title:
-                                    cubit.searchedMeals![index].strMeal ?? '',
-                                image:
-                                    cubit.searchedMeals![index].strMealThumb ??
-                                        '',
-                                country:
-                                    cubit.searchedMeals![index].strArea ?? '');
+                            return InkWell(
+                              onTap: () {
+                                context.pushNamed(Routes.meal,
+                                    arguments:
+                                        cubit.searchedMeals![index].idMeal);
+                              },
+                              child: MealCard(
+                                  title:
+                                      cubit.searchedMeals![index].strMeal ?? '',
+                                  image: cubit
+                                          .searchedMeals![index].strMealThumb ??
+                                      '',
+                                  country:
+                                      cubit.searchedMeals![index].strArea ??
+                                          ''),
+                            );
                           },
                         ),
                       );
