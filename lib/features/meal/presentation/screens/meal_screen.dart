@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_planner/core/helpers/extensions.dart';
 import 'package:food_planner/core/helpers/show_toast.dart';
 import 'package:food_planner/core/helpers/spacing.dart';
+import 'package:food_planner/features/favorite/controller/cubit/favorites_cubit.dart';
 import 'package:food_planner/features/meal/presentation/components/ingredient_widget.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -70,6 +71,8 @@ class _MealScreenState extends State<MealScreen> {
           );
         }
         if (state is GetMealByIdSuccess) {
+          final favoritesCubit = context.read<FavoritesCubit>();
+          final isFavorite = favoritesCubit.isFavorite(cubit.meal!.idMeal!);
           return Scaffold(
             body: CustomScrollView(
               slivers: <Widget>[
@@ -83,12 +86,23 @@ class _MealScreenState extends State<MealScreen> {
                         height: 35.h,
                         width: 35.w,
                         child: RawMaterialButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              if (isFavorite) {
+                                favoritesCubit
+                                    .removeMealFromFavorites(cubit.meal!);
+                              } else {
+                                favoritesCubit.addMealToFavorites(cubit.meal!);
+                              }
+                            });
+                          },
                           child: SizedBox(
                               height: 25.h,
                               width: 25.w,
                               child: SvgPicture.asset(
-                                'unSelectedHeart'.svgPath(),
+                                isFavorite
+                                    ? 'selectedHeart'.svgPath()
+                                    : 'unSelectedHeart'.svgPath(),
                                 color: ColorsManager.primary,
                               )),
                         ),
