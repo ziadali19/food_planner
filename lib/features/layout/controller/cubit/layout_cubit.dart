@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:food_planner/features/favorite/presentation/screens/favorites_screen.dart';
 import 'package:food_planner/features/search/presentation/screens/search_screen.dart';
 import 'package:meta/meta.dart';
 
@@ -13,7 +14,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   List<Widget> navScreens = [
     const LandingScreen(),
     const SearchScreen(),
-    Container(),
+    const FavoritesScreen(),
   ];
   List<String> navIcons = ['home', 'search', 'unSelectedHeart'];
   changeNavScreen(int index) {

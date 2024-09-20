@@ -58,6 +58,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           arguments: cubit.meals![index].idMeal);
                     },
                     child: MealCard(
+                        mealObj: cubit.meals![index],
                         title: cubit.meals![index].strMeal ?? '',
                         image: cubit.meals![index].strMealThumb ?? '',
                         country: cubit.meals![index].strArea ?? ''),
@@ -80,13 +81,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
         if (state is GetMealsBasedOnCategoryError) {
           return Scaffold(
             body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-              child: Expanded(
-                  child: Center(
-                      child: Text(
+              padding: EdgeInsets.symmetric(horizontal: 40.w),
+              child: Center(
+                  child: Text(
                 state.errorMsg,
+                textAlign: TextAlign.center,
                 style: TextStyles.font20Black700,
-              ))),
+              )),
             ),
           );
         }
