@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCtRttnxxWijP1m0J0dzko1eJTDqSpcTE0',
-    appId: '1:547723022844:android:5f04ab43929c190f02a279',
-    messagingSenderId: '547723022844',
-    projectId: 'depi-food-planner',
-    storageBucket: 'depi-food-planner.appspot.com',
+    apiKey: 'AIzaSyCLWBwZPxlqKhMSF-xqtZr7RZhJUZ0cF9g',
+    appId: '1:703472010852:android:ccfaa09ab9452388204171',
+    messagingSenderId: '703472010852',
+    projectId: 'depi-meal-app',
+    storageBucket: 'depi-meal-app.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCH8j7ibp3lP_uKSKnMLAiCM8YPf6vFIJM',
-    appId: '1:547723022844:ios:5fae3a6a443b0cd602a279',
-    messagingSenderId: '547723022844',
-    projectId: 'depi-food-planner',
-    storageBucket: 'depi-food-planner.appspot.com',
+    apiKey: 'AIzaSyD7j3EasGcdOTncdCq3Uo-jOLgg0UvA8wc',
+    appId: '1:703472010852:ios:c3a4b95e8710ea72204171',
+    messagingSenderId: '703472010852',
+    projectId: 'depi-meal-app',
+    storageBucket: 'depi-meal-app.appspot.com',
     iosBundleId: 'com.example.foodPlanner',
   );
 }

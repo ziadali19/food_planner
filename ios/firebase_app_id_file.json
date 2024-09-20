@@ -1,7 +1,7 @@
 {
   "file_generated_by": "FlutterFire CLI",
   "purpose": "FirebaseAppID & ProjectID for this Firebase app in this directory",
-  "GOOGLE_APP_ID": "1:547723022844:ios:5fae3a6a443b0cd602a279",
-  "FIREBASE_PROJECT_ID": "depi-food-planner",
-  "GCM_SENDER_ID": "547723022844"
+  "GOOGLE_APP_ID": "1:703472010852:ios:c3a4b95e8710ea72204171",
+  "FIREBASE_PROJECT_ID": "depi-meal-app",
+  "GCM_SENDER_ID": "703472010852"
 }

@@ -1,45 +1,45 @@
 {
   "project_info": {
-    "project_number": "547723022844",
-    "project_id": "depi-food-planner",
-    "storage_bucket": "depi-food-planner.appspot.com"
+    "project_number": "703472010852",
+    "project_id": "depi-meal-app",
+    "storage_bucket": "depi-meal-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:547723022844:android:5f04ab43929c190f02a279",
+        "mobilesdk_app_id": "1:703472010852:android:ccfaa09ab9452388204171",
         "android_client_info": {
           "package_name": "com.example.food_planner"
         }
       },
       "oauth_client": [
         {
-          "client_id": "547723022844-qila63ob8mrch3qo227897he2dvbfkgp.apps.googleusercontent.com",
+          "client_id": "703472010852-dasch6tr3rmekirv3askqimmulkm7366.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.food_planner",
-            "certificate_hash": "79cfe87f22c6b7b70ddbb34f825c68a3f1b7693c"
+            "certificate_hash": "b6f0508976d806af02c6da551f60c01b932a1333"
           }
         },
         {
-          "client_id": "547723022844-q0nsva0d4k7h6tfirt5hhdn659omka0v.apps.googleusercontent.com",
+          "client_id": "703472010852-sv3r9v76ru5h8vdrb4jnnh77fdf71ehs.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCtRttnxxWijP1m0J0dzko1eJTDqSpcTE0"
+          "current_key": "AIzaSyCLWBwZPxlqKhMSF-xqtZr7RZhJUZ0cF9g"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "547723022844-q0nsva0d4k7h6tfirt5hhdn659omka0v.apps.googleusercontent.com",
+              "client_id": "703472010852-sv3r9v76ru5h8vdrb4jnnh77fdf71ehs.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "547723022844-644tk5k5i6pvqs5vbcfteav3sv4krl96.apps.googleusercontent.com",
+              "client_id": "703472010852-5c61npelorfm6o0a41tsafk2b73g2ri3.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.example.foodPlanner"
