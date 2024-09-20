@@ -4,6 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:meta/meta.dart';
 
+import '../../../../core/utils/constants.dart';
 import '../../data/repository/auth_repository.dart';
 
 part 'login_state.dart';
@@ -11,6 +12,7 @@ part 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   final FirebaseAuth auth;
   final GoogleSignIn googleSignIn;
+
   final BaseAuthRepository baseAuthRepository;
   LoginCubit(this.baseAuthRepository, this.auth, this.googleSignIn)
       : super(LoginInitial());
@@ -22,6 +24,7 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   signInWithEmail(String email, String password) async {
+    AppConstants.isGuest = false;
     emit(UserLoginLoading());
     try {
       UserCredential result = await auth.signInWithEmailAndPassword(
@@ -35,6 +38,7 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   signInWithGoogle() async {
+    AppConstants.isGuest = false;
     emit(UserLoginLoading());
     try {
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
@@ -55,5 +59,10 @@ class LoginCubit extends Cubit<LoginState> {
       print(e.toString());
       emit(UserLoginError(e.toString()));
     }
+  }
+
+  loginAsGuest() {
+    AppConstants.isGuest = true; // Set guest mode
+    emit(UserLoginSuccess(null)); // Emit success with null user
   }
 }

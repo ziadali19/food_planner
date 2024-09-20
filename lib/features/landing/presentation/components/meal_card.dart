@@ -90,7 +90,8 @@ class _MealCardState extends State<MealCard> {
                     if (isFavorite) {
                       favoritesCubit.removeMealFromFavorites(widget.mealObj);
                     } else {
-                      favoritesCubit.addMealToFavorites(widget.mealObj);
+                      favoritesCubit.addMealToFavorites(
+                          widget.mealObj, context);
                     }
                   });
                 },

@@ -50,7 +50,7 @@ class _LandingScreenState extends State<LandingScreen> {
                                   .grey[200], // Set a color for the background
                               child: Text(
                                   AppConstants.getInitials(AppConstants.name ??
-                                      ''), // Display the initials
+                                      'Guest'), // Display the initials
                                   style: TextStyles.font18Black500),
                             ),
                             horizontalSpace(8.w),
@@ -59,7 +59,7 @@ class _LandingScreenState extends State<LandingScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '${'Welcome'} ${AppConstants.name}',
+                                    '${'Welcome'} ${AppConstants.name ?? 'Guest'}',
                                     overflow: TextOverflow
                                         .ellipsis, // Handle long names
                                     style: TextStyles.font18Black500,
