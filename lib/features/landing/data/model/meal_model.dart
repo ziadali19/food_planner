@@ -1,18 +1,52 @@
-class Meal {
+import 'package:hive/hive.dart';
+
+part 'meal_model.g.dart'; // This file will be generated
+
+@HiveType(typeId: 0) // Define a unique typeId for the model
+class Meal extends HiveObject {
+  @HiveField(0)
   final String? idMeal;
+
+  @HiveField(1)
   final String? strMeal;
+
+  @HiveField(2)
   final String? strDrinkAlternate;
+
+  @HiveField(3)
   final String? strCategory;
+
+  @HiveField(4)
   final String? strArea;
+
+  @HiveField(5)
   final String? strInstructions;
+
+  @HiveField(6)
   final String? strMealThumb;
+
+  @HiveField(7)
   final String? strTags;
+
+  @HiveField(8)
   final String? strYoutube;
+
+  @HiveField(9)
   final List<String?>? ingredients;
+
+  @HiveField(10)
   final List<String?>? measures;
+
+  @HiveField(11)
   final String? strSource;
+
+  @HiveField(12)
   final String? strImageSource;
+
+  @HiveField(13)
   final String? strCreativeCommonsConfirmed;
+
+  @HiveField(14)
   final String? dateModified;
 
   Meal({
