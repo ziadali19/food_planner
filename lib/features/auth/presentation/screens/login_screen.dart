@@ -96,18 +96,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     );
                   }
                   if (state is UserLoginSuccess) {
-                    context.pop();
-                    CacheHelper.instance
-                        .saveData('userToken', state.user.uid)
-                        .then((value) {
-                      AppConstants.userToken = state.user.uid;
+                    if (AppConstants.isGuest) {
+                      context.pushReplacementNamed(Routes.layout);
+                    } else {
+                      context.pop();
                       CacheHelper.instance
-                          .saveData('name', state.user.email!.split('@')[0])
+                          .saveData('userToken', state.user!.uid)
                           .then((value) {
-                        AppConstants.name = state.user.email!.split('@')[0];
-                        context.pushReplacementNamed(Routes.landing);
+                        AppConstants.userToken = state.user!.uid;
+                        CacheHelper.instance
+                            .saveData('name', state.user!.email!.split('@')[0])
+                            .then((value) {
+                          AppConstants.name = state.user!.email!.split('@')[0];
+                          context.pushReplacementNamed(Routes.layout);
+                        });
                       });
-                    });
+                    }
                   }
 
                   if (state is UserLoginError) {
@@ -261,8 +265,25 @@ class _LoginScreenState extends State<LoginScreen> {
                                   width: 30.w,
                                   child: SvgPicture.asset('google'.svgPath())),
                             )),
-                            verticalSpace(27.h),
+                            verticalSpace(10.h),
                             const Center(child: DontHaveAccontText()),
+                            verticalSpace(10.h),
+                            Divider(
+                              indent: 50.w,
+                              endIndent: 50.w,
+                              color: ColorsManager.primary,
+                            ),
+                            Center(
+                              child: TextButton(
+                                  onPressed: () {
+                                    context.read<LoginCubit>().loginAsGuest();
+                                  },
+                                  child: Text(
+                                    'Continue as Guest',
+                                    style: TextStyles.font14Black500
+                                        .copyWith(color: ColorsManager.primary),
+                                  )),
+                            ),
                           ],
                         )),
                   );

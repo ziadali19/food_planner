@@ -37,6 +37,7 @@ class LayoutScreen extends StatelessWidget {
                       navBarItem('home'),
                       navBarItem('search'),
                       navBarItem('unSelectedHeart'),
+                      navBarItem('setting')
                     ]),
               ),
               body: context

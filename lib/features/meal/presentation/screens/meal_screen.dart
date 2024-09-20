@@ -92,7 +92,8 @@ class _MealScreenState extends State<MealScreen> {
                                 favoritesCubit
                                     .removeMealFromFavorites(cubit.meal!);
                               } else {
-                                favoritesCubit.addMealToFavorites(cubit.meal!);
+                                favoritesCubit.addMealToFavorites(
+                                    cubit.meal!, context);
                               }
                             });
                           },

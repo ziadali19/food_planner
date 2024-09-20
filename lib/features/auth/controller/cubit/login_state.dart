@@ -10,7 +10,7 @@ final class ChangeVisibility extends LoginState {}
 final class UserLoginLoading extends LoginState {}
 
 final class UserLoginSuccess extends LoginState {
-  final User user;
+  final User? user;
   UserLoginSuccess(this.user);
 }
 

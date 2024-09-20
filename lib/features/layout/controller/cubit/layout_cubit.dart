@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:food_planner/features/favorite/presentation/screens/favorites_screen.dart';
 import 'package:food_planner/features/search/presentation/screens/search_screen.dart';
+import 'package:food_planner/features/settings/presentation/screens/settings_screen.dart';
 import 'package:meta/meta.dart';
 
 import '../../../landing/presentation/screens/landing_screen.dart';
@@ -15,8 +16,9 @@ class LayoutCubit extends Cubit<LayoutState> {
     const LandingScreen(),
     const SearchScreen(),
     const FavoritesScreen(),
+    const SettingsScreen()
   ];
-  List<String> navIcons = ['home', 'search', 'unSelectedHeart'];
+  List<String> navIcons = ['home', 'search', 'unSelectedHeart', 'setting'];
   changeNavScreen(int index) {
     selectedIndex = index;
     emit(ChangeIndex());

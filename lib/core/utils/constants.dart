@@ -7,7 +7,7 @@ class AppConstants {
   static String? name;
   static String? userType;
   static final navKey = GlobalKey<NavigatorState>();
-
+  static bool isGuest = false;
   static const baseURL = 'https://www.themealdb.com/api/json/v1/1/';
   static String getInitials(String fullName) {
     List<String> nameParts = fullName.split(' ');

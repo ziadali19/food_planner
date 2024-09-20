@@ -4,6 +4,7 @@ import 'package:food_planner/core/routing/routes.dart';
 import 'package:food_planner/features/auth/presentation/screens/login_screen.dart';
 import 'package:food_planner/features/landing/controller/cubit/category_cubit.dart';
 import 'package:food_planner/features/landing/presentation/screens/category_screen.dart';
+import 'package:food_planner/features/layout/presentation/screens/layout_screen.dart';
 import 'package:food_planner/features/meal/controller/cubit/meal_cubit.dart';
 import 'package:food_planner/features/meal/presentation/screens/meal_screen.dart';
 
@@ -50,6 +51,10 @@ class AppRouter {
             create: (context) => sl<CountryCubit>(),
             child: CountryScreen(countryName: arguments as String),
           ),
+        );
+      case Routes.layout:
+        return MaterialPageRoute(
+          builder: (context) => const LayoutScreen(),
         );
       default:
         return MaterialPageRoute(
