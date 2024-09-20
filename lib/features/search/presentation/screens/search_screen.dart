@@ -210,6 +210,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                         cubit.searchedMeals![index].idMeal);
                               },
                               child: MealCard(
+                                  mealObj: cubit.searchedMeals![index],
                                   title:
                                       cubit.searchedMeals![index].strMeal ?? '',
                                   image: cubit

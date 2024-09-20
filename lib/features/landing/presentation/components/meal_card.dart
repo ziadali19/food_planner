@@ -1,24 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_planner/core/helpers/extensions.dart';
 
 import 'package:food_planner/core/theming/colors.dart';
 import 'package:food_planner/core/theming/styles.dart';
+import 'package:food_planner/features/favorite/controller/cubit/favorites_cubit.dart';
 
 import '../../../../core/widgets/cached_images.dart';
+import '../../data/model/meal_model.dart';
 
-class MealCard extends StatelessWidget {
+class MealCard extends StatefulWidget {
   const MealCard(
       {super.key,
       required this.title,
       required this.image,
-      required this.country});
+      required this.country,
+      required this.mealObj});
   final String title;
   final String image;
   final String country;
+  final Meal mealObj;
+
+  @override
+  State<MealCard> createState() => _MealCardState();
+}
+
+class _MealCardState extends State<MealCard> {
   @override
   Widget build(BuildContext context) {
+    final favoritesCubit = context.read<FavoritesCubit>();
+    final isFavorite = favoritesCubit.isFavorite(widget.mealObj.idMeal!);
     return SizedBox(
       height: 230.h,
       child: Stack(
@@ -44,15 +57,15 @@ class MealCard extends StatelessWidget {
                       circleShape: true,
                       width: 150.w,
                       height: 115.h,
-                      url: image,
+                      url: widget.image,
                       radius: 100.r),
                   Text(
-                    title,
+                    widget.title,
                     style: TextStyles.font18Black500,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    country,
+                    widget.country,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyles.font16Black500
                         .copyWith(color: ColorsManager.primary),
@@ -72,12 +85,22 @@ class MealCard extends StatelessWidget {
               height: 40.h,
               width: 40.w,
               child: RawMaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    if (isFavorite) {
+                      favoritesCubit.removeMealFromFavorites(widget.mealObj);
+                    } else {
+                      favoritesCubit.addMealToFavorites(widget.mealObj);
+                    }
+                  });
+                },
                 child: SizedBox(
                     height: 30.h,
                     width: 30.w,
                     child: SvgPicture.asset(
-                      'unSelectedHeart'.svgPath(),
+                      isFavorite
+                          ? 'selectedHeart'.svgPath()
+                          : 'unSelectedHeart'.svgPath(),
                       color: ColorsManager.primary,
                     )),
               ),

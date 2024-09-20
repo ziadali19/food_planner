@@ -203,12 +203,15 @@ class _MealScreenState extends State<MealScreen> {
         }
         if (state is GetMealByIdError) {
           return Scaffold(
-            body: Expanded(
-                child: Center(
-                    child: Text(
-              state.errorMsg,
-              style: TextStyles.font20Black700,
-            ))),
+            body: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 40.w),
+              child: Center(
+                  child: Text(
+                state.errorMsg,
+                textAlign: TextAlign.center,
+                style: TextStyles.font20Black700,
+              )),
+            ),
           );
         }
         return const SizedBox.shrink();

@@ -112,6 +112,7 @@ class _LandingScreenState extends State<LandingScreen> {
                                       arguments: cubit.mealOfTheDay!.idMeal);
                                 },
                                 child: MealCard(
+                                    mealObj: cubit.mealOfTheDay!,
                                     title: cubit.mealOfTheDay!.strMeal ?? '',
                                     image:
                                         cubit.mealOfTheDay!.strMealThumb ?? '',
