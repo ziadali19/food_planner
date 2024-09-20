@@ -43,11 +43,19 @@ class LoginCubit extends Cubit<LoginState> {
     try {
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
       if (googleUser == null) {
-        return null;
+        emit(UserLoginError("Google sign-in aborted."));
+        return;
       }
 
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
+
+      if (googleAuth.accessToken == null || googleAuth.idToken == null) {
+        emit(
+            UserLoginError("Failed to retrieve Google authentication tokens."));
+        return;
+      }
+
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
@@ -57,7 +65,7 @@ class LoginCubit extends Cubit<LoginState> {
       emit(UserLoginSuccess(result.user!));
     } catch (e) {
       print(e.toString());
-      emit(UserLoginError(e.toString()));
+      emit(UserLoginError("Sign-in failed: ${e.toString()}"));
     }
   }
 
