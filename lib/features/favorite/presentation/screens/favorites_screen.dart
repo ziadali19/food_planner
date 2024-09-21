@@ -38,8 +38,8 @@ class FavoritesScreen extends StatelessWidget {
                       itemBuilder: (BuildContext context, int index) {
                         return InkWell(
                           onTap: () {
-                            context.pushNamed(Routes.meal,
-                                arguments: favoriteMeals[index].idMeal);
+                            context.pushNamed(Routes.favMeal,
+                                arguments: favoriteMeals[index]);
                           },
                           child: MealCard(
                               mealObj: favoriteMeals[index],

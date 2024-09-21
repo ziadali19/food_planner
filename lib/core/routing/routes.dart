@@ -7,4 +7,5 @@ class Routes {
   static const meal = 'meal';
   static const category = 'category';
   static const country = 'country';
+  static const favMeal = 'favMeal';
 }
