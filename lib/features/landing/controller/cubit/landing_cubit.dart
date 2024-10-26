@@ -4,7 +4,6 @@ import 'package:food_planner/core/network/failure.dart';
 import 'package:food_planner/features/landing/data/model/category_model.dart';
 import 'package:food_planner/features/landing/data/model/country_model.dart';
 import 'package:food_planner/features/landing/data/repository/landing_repository.dart';
-import 'package:meta/meta.dart';
 
 import '../../data/model/meal_model.dart';
 
@@ -12,41 +11,53 @@ part 'landing_state.dart';
 
 class LandingCubit extends Cubit<LandingState> {
   final BaseLandingRepository baseLandingRepository;
-  LandingCubit(this.baseLandingRepository) : super(LandingInitial());
-  Meal? mealOfTheDay;
+  LandingCubit(this.baseLandingRepository)
+      : super(LandingState(
+            getMealOfTheDayStatus: GetMealOfTheDayStatus.initial,
+            getCategoriesStatus: GetCategoriesStatus.initial,
+            getCountriesStatus: GetCountriesStatus.initial));
+
   getMealOfTheDay() async {
-    emit(GetMealOfTheDayLoading());
+    emit(state.copyWith(getMealOfTheDayStatus: GetMealOfTheDayStatus.loading));
     Either<ApiErrorModel, List<Meal>> result =
         await baseLandingRepository.getMealOfTheDay();
     result.fold((l) {
-      emit(GetMealOfTheDayError(l.message ?? 'Something went wrong'));
+      emit(state.copyWith(
+          getMealOfTheDayStatus: GetMealOfTheDayStatus.failure,
+          errorMsg: l.message ?? 'Something went wrong',
+          mealOfTheDay: state.mealOfTheDay));
     }, (r) {
-      mealOfTheDay = r[0];
-      emit(GetMealOfTheDaySuccess());
+      emit(state.copyWith(
+          getMealOfTheDayStatus: GetMealOfTheDayStatus.success,
+          mealOfTheDay: r[0]));
     });
   }
 
-  List<Category>? categories;
   getCategories() async {
-    emit(GetCategoriesLoading());
+    emit(state.copyWith(getCategoriesStatus: GetCategoriesStatus.loading));
     var result = await baseLandingRepository.getCategories();
     result.fold((l) {
-      emit(GetCategoriesError(l.message ?? 'Something went wrong'));
+      emit(state.copyWith(
+          getCategoriesStatus: GetCategoriesStatus.failure,
+          errorMsg: l.message ?? 'Something went wrong',
+          categories: state.categories));
     }, (r) {
-      categories = r;
-      emit(GetCategoriesSuccess());
+      emit(state.copyWith(
+          getCategoriesStatus: GetCategoriesStatus.success, categories: r));
     });
   }
 
-  List<Country>? countries;
   getCountries() async {
-    emit(GetCountriesLoading());
+    emit(state.copyWith(getCountriesStatus: GetCountriesStatus.loading));
     var result = await baseLandingRepository.getCountries();
     result.fold((l) {
-      emit(GetCountriesError(l.message ?? 'Something went wrong'));
+      emit(state.copyWith(
+          getCountriesStatus: GetCountriesStatus.failure,
+          errorMsg: l.message ?? 'Something went wrong',
+          countries: state.countries));
     }, (r) {
-      countries = r;
-      emit(GetCountriesSuccess());
+      emit(state.copyWith(
+          getCountriesStatus: GetCountriesStatus.success, countries: r));
     });
   }
 }

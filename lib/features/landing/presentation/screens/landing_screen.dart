@@ -92,32 +92,45 @@ class _LandingScreenState extends State<LandingScreen> {
                         verticalSpace(20.h),
                         BlocConsumer<LandingCubit, LandingState>(
                           buildWhen: (previous, current) =>
-                              current is GetMealOfTheDaySuccess ||
-                              current is GetMealOfTheDayError ||
-                              current is GetMealOfTheDayLoading,
+                              current.getMealOfTheDayStatus !=
+                              previous.getMealOfTheDayStatus,
                           listener: (context, state) {
-                            if (state is GetMealOfTheDayError) {
+                            if (state.getMealOfTheDayStatus.isFailure) {
                               showSnackBar(state.errorMsg, context, false);
                             }
                           },
                           builder: (context, state) {
-                            LandingCubit cubit = context.read<LandingCubit>();
-                            if (cubit.mealOfTheDay == null) {
+                            if (state.getMealOfTheDayStatus.isLoading) {
                               return const ShimmerItemForMeals(itemCount: 1);
                             }
-                            if (cubit.mealOfTheDay != null) {
+                            if (state.getMealOfTheDayStatus.isSuccess) {
                               return InkWell(
                                 onTap: () {
                                   context.pushNamed(Routes.meal,
-                                      arguments: cubit.mealOfTheDay!.idMeal);
+                                      arguments: state.mealOfTheDay!.idMeal);
                                 },
                                 child: MealCard(
-                                    mealObj: cubit.mealOfTheDay!,
-                                    title: cubit.mealOfTheDay!.strMeal ?? '',
+                                    mealObj: state.mealOfTheDay!,
+                                    title: state.mealOfTheDay!.strMeal ?? '',
                                     image:
-                                        cubit.mealOfTheDay!.strMealThumb ?? '',
-                                    country: cubit.mealOfTheDay!.strArea ?? ''),
+                                        state.mealOfTheDay!.strMealThumb ?? '',
+                                    country: state.mealOfTheDay!.strArea ?? ''),
                               );
+                            }
+                            if (state.getMealOfTheDayStatus.isFailure) {
+                              if (state.mealOfTheDay == null) {
+                                return Center(
+                                  child: Text(
+                                      state.errorMsg ?? 'Something went wrong'),
+                                );
+                              } else {
+                                return MealCard(
+                                    mealObj: state.mealOfTheDay!,
+                                    title: state.mealOfTheDay!.strMeal ?? '',
+                                    image:
+                                        state.mealOfTheDay!.strMealThumb ?? '',
+                                    country: state.mealOfTheDay!.strArea ?? '');
+                              }
                             }
                             return const SizedBox.shrink();
                           },
@@ -125,82 +138,83 @@ class _LandingScreenState extends State<LandingScreen> {
                         verticalSpace(20.h),
                         Text('Categories', style: TextStyles.font24Black700),
                         verticalSpace(10.h),
-                        BlocConsumer<LandingCubit, LandingState>(
-                          buildWhen: (previous, current) =>
-                              current is GetCategoriesSuccess ||
-                              current is GetCategoriesError ||
-                              current is GetCategoriesLoading,
-                          listener: (context, state) {
-                            if (state is GetCategoriesError) {
-                              showSnackBar(state.errorMsg, context, false);
-                            }
+                        RefreshIndicator(
+                          onRefresh: () async {
+                            context.read<LandingCubit>().getCategories();
                           },
-                          builder: (context, state) {
-                            LandingCubit cubit = context.read<LandingCubit>();
-                            if (cubit.categories == null) {
-                              return const ShimmerItemForMeals(itemCount: 1);
-                            }
-                            if (cubit.categories != null) {
-                              return SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                    children: List.generate(
-                                        cubit.categories!.length,
-                                        (index) => GestureDetector(
-                                              onTap: () {
-                                                context.pushNamed(
-                                                    Routes.category,
-                                                    arguments: cubit
-                                                        .categories![index]
-                                                        .strCategory);
-                                              },
-                                              child: CategoryWidget(
-                                                categoryThumb: cubit
-                                                        .categories![index]
-                                                        .strCategoryThumb ??
-                                                    '',
-                                                categoryName: cubit
-                                                        .categories![index]
-                                                        .strCategory ??
-                                                    '',
-                                              ),
-                                            ))),
-                              );
-                            }
-                            return const SizedBox.shrink();
-                          },
+                          child: BlocConsumer<LandingCubit, LandingState>(
+                            buildWhen: (previous, current) =>
+                                current.getCategoriesStatus !=
+                                previous.getCategoriesStatus,
+                            listener: (context, state) {
+                              if (state.getCategoriesStatus.isFailure) {
+                                showSnackBar(state.errorMsg, context, false);
+                              }
+                            },
+                            builder: (context, state) {
+                              if (state.getCategoriesStatus.isLoading) {
+                                return const ShimmerItemForMeals(itemCount: 1);
+                              }
+                              if (state.getCategoriesStatus.isSuccess) {
+                                return SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                      children: List.generate(
+                                          state.categories!.length,
+                                          (index) => GestureDetector(
+                                                onTap: () {
+                                                  context.pushNamed(
+                                                      Routes.category,
+                                                      arguments: state
+                                                          .categories![index]
+                                                          .strCategory);
+                                                },
+                                                child: CategoryWidget(
+                                                  categoryThumb: state
+                                                          .categories![index]
+                                                          .strCategoryThumb ??
+                                                      '',
+                                                  categoryName: state
+                                                          .categories![index]
+                                                          .strCategory ??
+                                                      '',
+                                                ),
+                                              ))),
+                                );
+                              }
+                              return const SizedBox.shrink();
+                            },
+                          ),
                         ),
                         verticalSpace(20.h),
                         Text('Countries', style: TextStyles.font24Black700),
                         verticalSpace(10.h),
                         BlocConsumer<LandingCubit, LandingState>(
                           buildWhen: (previous, current) =>
-                              current is GetCountriesError ||
-                              current is GetCountriesSuccess ||
-                              current is GetCountriesLoading,
+                              current.getCountriesStatus !=
+                              previous.getCountriesStatus,
                           listener: (context, state) {
-                            if (state is GetCountriesError) {
+                            if (state.getCountriesStatus.isFailure) {
                               showSnackBar(state.errorMsg, context, false);
                             }
                           },
                           builder: (context, state) {
-                            LandingCubit cubit = context.read<LandingCubit>();
-                            if (cubit.countries == null) {
+                            if (state.getCountriesStatus.isLoading) {
                               return const ShimmerItemForMeals(itemCount: 1);
                             }
-                            if (cubit.countries != null) {
+                            if (state.getCountriesStatus.isSuccess) {
                               return Wrap(
                                 direction: Axis.horizontal,
                                 children: List.generate(
-                                    cubit.countries!.length,
+                                    state.countries!.length,
                                     (index) => InkWell(
                                           onTap: () {
                                             context.pushNamed(Routes.country,
-                                                arguments: cubit
+                                                arguments: state
                                                     .countries![index].strArea);
                                           },
                                           child: CountryWidget(
-                                            country: cubit.countries![index]
+                                            country: state.countries![index]
                                                     .strArea ??
                                                 '',
                                           ),
