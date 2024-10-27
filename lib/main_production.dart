@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_planner/features/favorite/controller/cubit/favorites_cubit.dart';
 import 'package:food_planner/firebase_options.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -20,6 +21,7 @@ import 'food_planner_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await ScreenUtil.ensureScreenSize();
   await Hive.initFlutter(); // Initialize Hive
 
   // Register the adapter before opening the box
