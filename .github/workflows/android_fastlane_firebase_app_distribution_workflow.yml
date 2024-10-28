@@ -27,8 +27,11 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.3.5"
-          bundler-cache: true
-          working-directory: android
+          bundler-cache: false # Disable cache temporarily
+
+      # Ensure bundler is installed in case it is not
+      - name: Install Bundler
+        run: gem install bundler -v 2.5.22
 
       # Add platform for Linux to the lockfile
       - name: Add Linux Platform to Bundler
