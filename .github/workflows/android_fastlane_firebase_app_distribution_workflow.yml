@@ -30,10 +30,12 @@ jobs:
           bundler-cache: true
           working-directory: android
 
-      - name: Update Bundler Platforms
+      # Add platform for Linux to the lockfile
+      - name: Add Linux Platform to Bundler
         run: bundle lock --add-platform x86_64-linux
         working-directory: android
 
+      # Now install the dependencies after adding platform support
       - name: Install Dependencies
         run: bundle install
         working-directory: android
