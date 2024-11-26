@@ -1,7 +1,7 @@
 class ApiErrorModel {
   final String? message;
   final int? code;
-  ApiErrorModel({required this.code, required this.message});
+  ApiErrorModel({ this.code, required this.message});
 
   factory ApiErrorModel.fromJson(Map<String, dynamic> map) {
     return ApiErrorModel(

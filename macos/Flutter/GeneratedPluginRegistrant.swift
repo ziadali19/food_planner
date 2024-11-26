@@ -11,7 +11,7 @@ import flutter_inappwebview_macos
 import google_sign_in_ios
 import path_provider_foundation
 import shared_preferences_foundation
-import sqflite
+import sqflite_darwin
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   FLTFirebaseAuthPlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseAuthPlugin"))
